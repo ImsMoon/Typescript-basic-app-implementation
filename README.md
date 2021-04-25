@@ -1,0 +1,2 @@
+# Typescript basic app implementation
+ 
