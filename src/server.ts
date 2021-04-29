@@ -1,5 +1,5 @@
-import express, { Application} from "express";
-import {routes} from "./controller/routes";
+import express, { Application, Request,Response} from "express";
+import router from "./controller/routes";
 
 
 const init = (): Application => {
@@ -9,8 +9,10 @@ const init = (): Application => {
     //     res.send(`requesting \n ${req.method} at \n`+ new Date())
     // })
 
-    routes.forEach((route)=>{
-        (app as any)[route.http](route.path,route.handler)
+    app.use("/api",router);
+
+    app.use("/",(req:Request,res:Response)=>{
+        res.send(`Default route ${req.method}`)
     })
 
     return app;
