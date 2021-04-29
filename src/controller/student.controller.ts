@@ -1,21 +1,23 @@
 import { IRoute } from "./routes";
-import {Request,Response} from "express"
+import {Request,Response} from "express";
+import {getStudents} from "../service/student.service"
 
-const getStudentData = (req: Request, res: Response) => {
-    res.send(`requesting Student data \n ${req.method} at \n` + new Date());
+const getHandler = async(req: Request, res: Response) => {
+    const students = await getStudents();
+    res.send(students);
 };
-const postStudentData = (req: Request, res: Response) => {
+const postHandler = (req: Request, res: Response) => {
     res.send(`Posting Student data \n ${req.method} at \n` + new Date());
 };
 export const studentRoutes:IRoute[] = [
     {
         http: "get",
         path: "/student",
-        handler: getStudentData
+        handler: getHandler
     },
     {
         http: "post",
         path: "/student",
-        handler: postStudentData
+        handler: postHandler
     }
 ];

@@ -16,3 +16,12 @@ export interface StudentRequestModel{
     phone:string,
     email:string
 }
+
+export const getStudents =async ():Promise<StudentViewModel[]>=>{
+    return await
+    [
+        {
+            id:"1",name:"moon",phone:"017",email:"me@moon.com"
+        }
+    ]
+}
