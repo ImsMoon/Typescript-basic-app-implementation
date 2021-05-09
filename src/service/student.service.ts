@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 const schema = mongoose.Schema;
 
 const StudentSchema = new Schema({
@@ -30,13 +30,17 @@ export interface StudentRequestModel{
     email:string
 }
 
+const convertToViewModel = (model:Student)=>{
+    let StdVm : StudentViewModel ={
+        ...JSON.parse(JSON.stringify(model))
+    };
+    return StdVm;
+}
+
 export const getStudents =async ():Promise<StudentViewModel[]>=>{
-    return await
-    [
-        {
-            id:"1",name:"moon",phone:"017",email:"me@moon.com"
-        }
-    ]
+    const students = await StudentDocument.find().exec();
+    const vm : StudentViewModel[] = students.map((student) => convertToViewModel(student));
+    return vm;
 }
 
 export const save = async (payload:any): Promise<String> => {
